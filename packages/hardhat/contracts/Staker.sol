@@ -17,7 +17,8 @@ contract Staker {
   uint256 public constant threshold = 1 ether;
 
   /// Staking deadline
-  uint256 public deadline = block.timestamp + 72 hours;
+  uint256 public deadline = block.timestamp + 72 hours
+  ;
 
   /// Boolean set if threshold is not reached by the deadline
   bool public openForWithdraw;
@@ -33,7 +34,7 @@ contract Staker {
     if (requireDeadlinePassed) {
       require(timeRemaining <= 0, "Deadline has not been passed yet");
     } else {
-      require(timeRemaining > 0, "Deadline is already passed");
+      require(timeRemaining >= 0, "Deadline is already passed");
     }
     _;
   }
