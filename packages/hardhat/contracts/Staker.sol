@@ -76,7 +76,7 @@ contract Staker {
 
 
   // Add a `withdraw(address payable)` function lets users withdraw their balance
-  function withdraw(address payable _to) public deadlinePassed(true) stakingNotCompleted {
+  function withdraw() public deadlinePassed(true) stakingNotCompleted {
       // check the amount staked did not reach the threshold by the deadline
       require(openForWithdraw, "Not open for withdraw");
 
@@ -90,7 +90,7 @@ contract Staker {
       balances[msg.sender] = 0;
 
       // transfer sender's balance to the `_to` address
-      (bool sent, ) = _to.call{value: userBalance}("");
+      (bool sent, ) = msg.sender.call{value: userBalance}("");
 
       // check transfer was successful
       require(sent, "Failed to send to address");
